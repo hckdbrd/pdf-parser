@@ -2,6 +2,9 @@ package com.PDFParser;
 
 import com.PDFParser.model.Model;
 import com.CSVOrm.CSVOrm;
+import com.PDFParser.model.Model2;
+import com.PDFParser.model.Model3;
+import com.PDFParser.model.Model4;
 import com.spire.pdf.PdfDocument;
 import com.spire.pdf.utilities.PdfTable;
 import com.spire.pdf.utilities.PdfTableExtractor;
@@ -12,6 +15,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -39,26 +43,108 @@ public class Main {
                         }
                         stringBuilder.append("\r\n");
                     }
+                    stringBuilder.append("\r\n");
                 }
             }
         }
 
-        List<String> stringList = new ArrayList<>();
-        stringList.add(0, "Category Budget Actual");
+        System.out.println("New Model " + "\r\n");
+        String[] allTablesFromPdf = stringBuilder.toString().replaceAll("\\s\\|", "").trim().split("\r\n");
+        List<String> asd = Arrays.stream(allTablesFromPdf).toList();
+        List<String> str = new ArrayList<>();
 
-        String[] string = stringBuilder.toString().split("Category | Budget | Actual");
-        stringList.addAll(List.of(string[3].trim().replaceAll("\\s\\|", "").trim().split("\r\n")));
-        //stringList.addAll(List.of(string[3].trim().split("\r\n")));
+        int countElement = 0;
 
-        //List<String> trimed = stringList.stream().map(str -> str.trim()).collect(Collectors.toList());
+        for (int i = 0 ; i < allTablesFromPdf.length; i++) {
+            countElement++;
+            if (allTablesFromPdf[i].equals("")) {
+                break;
+            }
+            str.add(i, allTablesFromPdf[i]);
 
-        stringList.remove(1);
-        stringList.set(6, "PersonalItems 300,00 UAH 80,00 UAH");
-
-        List<Model> personList = CSVOrm.transform(stringList, Model.class);
-
-        for (Model model : personList) {
-            System.out.println(model);
         }
+
+        str.set(0, "Category Budget Actual");
+        str.set(6, "PersonalItems 300,00 UAH 80,00 UAH");
+        List<Model> personList = CSVOrm.transform(str, Model.class);
+
+        for (Model models : personList) {
+            System.out.println(models);
+        }
+
+        System.out.println("New Model " + "\r\n");
+
+        int count = 0;
+        List<String> stf = new ArrayList<>();
+        for (int i = countElement; i < allTablesFromPdf.length; i++) {
+            countElement++;
+            if (allTablesFromPdf[i].equals("")) {
+                break;
+            }
+
+            stf.add(count, allTablesFromPdf[i]);
+            count++;
+
+        }
+
+        stf.set(0, "Category Difference");
+        stf.set(6, "PersonalItems 220,00 UAH");
+        List<Model2> personList1 = CSVOrm.transform(stf, Model2.class);
+
+        for (Model2 model2 : personList1) {
+            System.out.println(model2);
+        }
+
+
+        int count2 = 0;
+        List<String> stringList3 = new ArrayList<>();
+        for (int i = countElement; i < allTablesFromPdf.length; i++) {
+            countElement++;
+
+            if (allTablesFromPdf[i].equals("   ")) {
+                break;
+            }
+            if (allTablesFromPdf[i].equals("")) {
+                break;
+            }
+
+            stringList3.add(count2, allTablesFromPdf[i]);
+            count2++;
+
+        }
+
+        stringList3.set(3, "02/11/20 FlightNo Travel");
+        stringList3.set(5, "02/11/20 CinemaTickets Entertainment");
+        stringList3.set(6, "02/11/20 DinnerOut Food");
+        stringList3.set(8, "21/11/20 Shoes PersonalItems");
+
+        System.out.println("New Model " + "\r\n");
+
+        List<Model3> personList3 = CSVOrm.transform(stringList3, Model3.class);
+
+        for (Model3 model3 : personList3) {
+            System.out.println(model3);
+        }
+
+        int count4 = 0;
+        List<String> stringList4 = new ArrayList<>();
+        for (int i = countElement; i < allTablesFromPdf.length; i++) {
+            countElement++;
+
+            if (!allTablesFromPdf[i].equals("   ") & !allTablesFromPdf.equals("")) {
+                stringList4.add(count4, allTablesFromPdf[i]);
+                count4++;
+            }
+
+        }
+
+        System.out.println("New Model " + "\r\n");
+        stringList4.remove(0);
+        List<Model4> personList4 = CSVOrm.transform(stringList4, Model4.class);
+
+        for (Model4 model4 : personList4) {
+            System.out.println(model4);
+        }
+
     }
 }
