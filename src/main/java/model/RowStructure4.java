@@ -3,10 +3,13 @@ package model;
 import lombok.Data;
 
 @Data
-public class RowStructure4 implements src.main.java.model.RowStructure {
-    private String Amount;
+public class RowStructure4 implements RowStructure {
+    private String amount;
 
-    public RowStructure4(String amount) {
-        Amount = amount;
+    public RowStructure4(RowStructure4 rowStructure) {
+        this.amount = rowStructure.getAmount();
+    }
+
+    public RowStructure4() {
     }
 }
