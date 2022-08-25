@@ -26,10 +26,13 @@ public class Main {
             PdfTable[] tableLists = pdfTableExtractor.extractTable(pageIndex);
             if (tableLists != null && tableLists.length > 0) {
                 for (PdfTable table : tableLists) {
-                    tables.add(Arrays.asList(buildTable(table).toString().split("\r\s")));
+                    tables.add(Arrays.asList(buildTable(table).toString()
+                            .replaceAll("(?<=[a-zA-Z])\s+(?=[a-zA-Z])","_")
+                            .split("\r\n")));
                 }
             }
         }
+
     }
 
     private static StringBuilder buildTable(PdfTable table) {
@@ -49,6 +52,6 @@ public class Main {
                 row.add(text);
             }
         }
-        stringBuilder.append(String.join("|", row));
+        stringBuilder.append(String.join(", ", row));
     }
 }
