@@ -1,0 +1,27 @@
+Date Description Category 
+01/11/20 Shopping Food 
+01/11/20 Rug Home 
+02/11/20 Flight No Travel 
+02/11/20 Petrol Auto 
+02/11/20 Cinema Tickets Entertainment 
+02/11/20 Dinner Out Food 
+18/11/20 Medicine Medical 
+21/11/20 Shoes Personal Items 
+22/11/20 Gift Other 
+23/11/20 Telephone Utilities 
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
