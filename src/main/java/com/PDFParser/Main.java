@@ -1,5 +1,6 @@
 package com.PDFParser;
 
+import com.PDFParser.model.Model;
 import com.spire.pdf.PdfDocument;
 import com.spire.pdf.utilities.PdfTable;
 import com.spire.pdf.utilities.PdfTableExtractor;
@@ -22,6 +23,7 @@ public class Main {
         document.loadFromBytes(Files.readAllBytes(file.toPath()));
         PdfTableExtractor pdfTableExtractor = new PdfTableExtractor(document);
         List<List<String>> tables = new ArrayList<>();
+        List<List<Model>> modelList = new ArrayList<>();
         for (int pageIndex = 0; pageIndex < document.getPages().getCount(); pageIndex++) {
             PdfTable[] tableLists = pdfTableExtractor.extractTable(pageIndex);
             if (tableLists != null && tableLists.length > 0) {
@@ -29,6 +31,9 @@ public class Main {
                     tables.add(Arrays.asList(buildTable(table).toString()
                             .replaceAll("(?<=[a-zA-Z])\s+(?=[a-zA-Z])","_")
                             .split("\r\n")));
+                    modelList.add(new PDFParser().readAll(buildTable(table).toString().replaceAll("(?<=[a-zA-Z])\s+(?=[a-zA-Z])","_")
+                            .replaceAll("\u00a0",""), Model.class));
+
                 }
             }
         }
@@ -52,6 +57,6 @@ public class Main {
                 row.add(text);
             }
         }
-        stringBuilder.append(String.join(", ", row));
+        stringBuilder.append(String.join("| ", row));
     }
 }
