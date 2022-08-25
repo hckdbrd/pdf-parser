@@ -11,11 +11,15 @@ public class SimpleTextExtractor {
     public static void main(String[] args) throws IOException {
         PdfReader pdfReader = new PdfReader("sample.pdf");
 
-        for (int i = 1; i < pdfReader.getNumberOfPages(); i++){
+//SimpleTextExtractionStrategy - парсимо весь файл з першої пдф сторінки до останньої
+        for (int i = 1; i < pdfReader.getNumberOfPages(); i++) {
             TextExtractionStrategy textExtractionStrategy = new SimpleTextExtractionStrategy();
             String text = PdfTextExtractor.getTextFromPage(pdfReader, i, textExtractionStrategy);
             System.out.println(text);
+
         }
         pdfReader.close();
+
+
     }
 }
