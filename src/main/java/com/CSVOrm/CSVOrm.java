@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class CSVOrm {
 
-    public static final String DELIMITER = " ";
+    public static final String DELIMITER = ";";
 
     public static <T> List<T> transform(List<String> lines, Class<T> cls) {
         Map<Integer, String> mapping = buildMapping(lines.get(0));
