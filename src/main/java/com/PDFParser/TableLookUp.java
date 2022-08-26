@@ -12,6 +12,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TableLookUp {
+    String DUPLICATE = "\\b(\\w+)\\1\\b";
+    String NO_BREAK_SPACE = "\u00a0";
 
     @SneakyThrows
     public List<List<String>> searchTables(File file) {
@@ -19,22 +21,20 @@ public class TableLookUp {
         PdfDocument document = new PdfDocument();
         document.loadFromBytes(Files.readAllBytes(file.toPath()));
         PdfTableExtractor pdfTableExtractor = new PdfTableExtractor(document);
-
         List<List<String>> tables = new ArrayList<>();
-
         for (int pageIndex = 0; pageIndex < document.getPages().getCount(); pageIndex++) {
             PdfTable[] tableLists = pdfTableExtractor.extractTable(pageIndex);
             if (tableLists != null && tableLists.length > 0) {
                 for (PdfTable table : tableLists) {
                     tables.add(Arrays.asList(buildTable.buildTable(table).toString()
                             .replaceAll("(?<=[a-zA-Z])\s+(?=[a-zA-Z])", "_")
-                            .replaceAll("CategoryCategory", "Category")
+                            .replaceAll(DUPLICATE, "$1")
+                            .replaceAll(NO_BREAK_SPACE, "")
                             .replaceAll("Diﬀerence", "Difference")
                             .split("\r\n")));
                 }
             }
         }
-
         return tables;
     }
 }
