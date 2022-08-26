@@ -14,18 +14,19 @@ public class Main {
     public static void main(String[] args) {
         TableLookUp tableLookUp = new TableLookUp();
         WriteToConsole write = new WriteToConsole();
+
         URL url = Main.class.getClassLoader().getResource("sample.pdf");
         File file = new File(url.toURI());
         List<List<String>> allTables = tableLookUp.searchTables(file);
         List<List<Model>> modelList = new ArrayList<>();
-        List<Model> personList;
+
         writeToModelList(write, allTables, modelList);
-        System.out.print("");
     }
 
     private static void writeToModelList(WriteToConsole write, List<List<String>> allTables, List<List<Model>> modelList) {
         List<Model> personList;
         for (List<String> allTable : allTables) {
+            allTable.set(0, allTable.get(0).toLowerCase());
             personList = CSVOrm.transform(allTable, Model.class);
             modelList.add(personList);
             printToConsole(write, personList, allTable);

@@ -10,12 +10,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Model {
-    private String Category;
-    private String Budget;
-    private String Actual;
-    private String Difference;
-    private String Date;
-    private String Description;
-    private String Amount;
+    private String category;
+    private String budget;
+    private String actual;
+    private String difference;
+    private String date;
+    private String description;
+    private String amount;
 
 }
