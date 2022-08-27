@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 public class CSVOrm {
 
-    public static final String DELIMITER = "\\|";
+    public static final String DELIMITER = ";";
 
     public static <T> List<T> transform(List<String> lines, Class<T> cls) {
         Map<Integer, String> mapping = buildMapping(lines.get(0));
@@ -26,7 +26,7 @@ public class CSVOrm {
         Map<Integer, String> map = new LinkedHashMap<>();
         String[] array = splitLine(firstLine);
         for (int index = 0; index < array.length; index++) {
-            String value = array[index];
+            String value = array[index].toLowerCase();
             map.put(index, value.trim());
         }
         return map;
@@ -38,7 +38,7 @@ public class CSVOrm {
 
         String[] array = splitLine(line);
         for (int index = 0; index < array.length; index++) {
-            String value = array[index];
+            String value = array[index].trim();
             String fieldName = mapping.get(index);
             setValueIntoFieldOrThrow(value, fieldName, type);
         }
