@@ -1,4 +1,5 @@
 package com.PDFParser;
+
 import lombok.SneakyThrows;
 
 import javax.tools.*;
@@ -43,18 +44,17 @@ public class ClassBuilder {
         fileManager.close();
 
         // load the compiled class
-        URLClassLoader classLoader = URLClassLoader.newInstance(new URL[] { parentDirectory.toURI().toURL() });
+        URLClassLoader classLoader = URLClassLoader.newInstance(new URL[]{parentDirectory.toURI().toURL()});
         return classLoader.loadClass(classname);
     }
+
     @SneakyThrows
     private static String fieldsOf(String[] fieldNames) {
         if (fieldNames.length != 0) {
-
             StringBuilder fields = new StringBuilder();
             String modificator = "public";
             String type = "String";
             String name;
-
             for (String fieldName : fieldNames) {
                 name = fieldName.trim();
                 fields

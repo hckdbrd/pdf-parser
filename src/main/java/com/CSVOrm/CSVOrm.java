@@ -35,14 +35,12 @@ public class CSVOrm {
     @SneakyThrows
     private static <T> T toType(String line, Class<T> cls, Map<Integer, String> mapping) {
         T type = cls.getDeclaredConstructor().newInstance();
-
         String[] array = splitLine(line);
         for (int index = 0; index < array.length; index++) {
             String value = array[index].trim();
             String fieldName = mapping.get(index);
             setValueIntoFieldOrThrow(value, fieldName, type);
         }
-
         return type;
     }
 
@@ -67,7 +65,6 @@ public class CSVOrm {
         typeToFunction.put(LocalDateTime.class, LocalDate::parse);
         typeToFunction.put(Long.class, Long::parseLong);
         typeToFunction.put(BigInteger.class, BigInteger::new);
-
         return typeToFunction.getOrDefault(field.getType(), type -> {
             throw new UnsupportedOperationException("Type is not supported by parser " + type);
         }).apply(value);

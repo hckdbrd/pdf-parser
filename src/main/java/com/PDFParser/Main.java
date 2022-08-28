@@ -29,7 +29,7 @@ public class Main {
         document.loadFromBytes(Files.readAllBytes(file.toPath()));
 
         PdfTableExtractor pdfTableExtractor = new PdfTableExtractor(document);
-        List<String[]> fieldNames = new LinkedList<>();
+        //List<String[]> fieldNames = new LinkedList<>();
         List<List<?>> dynamicModelList = new ArrayList<>();
 
         // REGEX
@@ -47,8 +47,8 @@ public class Main {
                             .replaceAll(DUPLICATE, "$1")
                             .replaceAll(NO_BREAK_SPACE, " ")
                             .split("\r\n"));
-                    fieldNames.add(tbl.get(0).toLowerCase().split(";"));
-                    Class<?> clazz = ClassBuilder.buildClass(fieldNames.get(pageIndex));
+                    //fieldNames.add(tbl.get(0).toLowerCase().split(";"));
+                    Class<?> clazz = ClassBuilder.buildClass(tbl.get(0).toLowerCase().split(";"));
                     dynamicModelList.add(new CSVOrm().transform(tbl, clazz));
                 }
 
