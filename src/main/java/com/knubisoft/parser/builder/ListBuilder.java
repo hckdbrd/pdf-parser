@@ -1,4 +1,4 @@
-package com.CSVOrm;
+package com.knubisoft.parser.builder;
 
 import lombok.SneakyThrows;
 
@@ -12,12 +12,13 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class CSVOrm {
+public class ListBuilder {
 
     public static final String DELIMITER = ";";
 
     public static <T> List<T> transform(List<String> lines, Class<T> cls) {
         Map<Integer, String> mapping = buildMapping(lines.get(0));
+
         return lines.subList(1, lines.size()).stream().map(line -> toType(line, cls, mapping))
                 .collect(Collectors.toList());
     }
@@ -25,6 +26,7 @@ public class CSVOrm {
     private static Map<Integer, String> buildMapping(String firstLine) {
         Map<Integer, String> map = new LinkedHashMap<>();
         String[] array = splitLine(firstLine);
+
         for (int index = 0; index < array.length; index++) {
             String value = array[index].toLowerCase();
             map.put(index, value.trim());
@@ -36,6 +38,7 @@ public class CSVOrm {
     private static <T> T toType(String line, Class<T> cls, Map<Integer, String> mapping) {
         T type = cls.getDeclaredConstructor().newInstance();
         String[] array = splitLine(line);
+
         for (int index = 0; index < array.length; index++) {
             String value = array[index].trim();
             String fieldName = mapping.get(index);
