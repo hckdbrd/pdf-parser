@@ -13,7 +13,7 @@ import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
 
-public class ClassBuilder {
+public final class ClassBuilder {
 
     private static final String CLASS_DECLARATION = "(class)\\s(\\w+)\\s";
     private static final String CODE_PLACEHOLDER = "\\{(\\s*.*\\s*/{2}\\s*.*\\s*)}";
@@ -48,11 +48,19 @@ public class ClassBuilder {
 
         StandardJavaFileManager fileManager = compiler
                 .getStandardFileManager(null, null, null);
-        fileManager.setLocation(StandardLocation.CLASS_OUTPUT, Collections.singletonList(parentDirectory));
+        fileManager
+                .setLocation(StandardLocation.CLASS_OUTPUT, Collections.singletonList(parentDirectory));
         Iterable<? extends JavaFileObject> compilationUnits = fileManager
                 .getJavaFileObjectsFromFiles(List.of(sourceFile));
-        compiler.getTask(null, fileManager, null, null, null, compilationUnits).call();
-        fileManager.close();
+        compiler
+                .getTask(null,
+                        fileManager,
+                        null,
+                        null,
+                        null,
+                        compilationUnits).call();
+        fileManager
+                .close();
 
         return parentDirectory;
     }

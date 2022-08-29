@@ -4,7 +4,7 @@ import com.spire.pdf.utilities.PdfTable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TableBuilder {
+public final class TableBuilder {
 
     public static StringBuilder buildTable(PdfTable table) {
         StringBuilder stringBuilder = new StringBuilder();
