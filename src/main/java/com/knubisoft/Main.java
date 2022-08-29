@@ -14,26 +14,18 @@ import static com.knubisoft.parser.PDFParser.fromPDFToList;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException{
-        Locale newLocale = Locale.ROOT;
-        Locale.setDefault(newLocale);
-
+    public static void main(String[] args) throws IOException {
         PdfDocument document = new PdfDocument();
         document.loadFromBytes(Files.readAllBytes(getFile().toPath()));
-
-        PdfTableExtractor pdfTableExtractor = new PdfTableExtractor(document);
-
-        List<List<?>> result = fromPDFToList(pdfTableExtractor, document);
+        List<List<?>> result = fromPDFToList(document) ;
     }
 
     @SneakyThrows
-    private static File getFile(){
+    private static File getFile() {
         URL url = Main.class.getClassLoader().getResource("sample.pdf");
-
         if (url == null) {
             throw new IllegalArgumentException();
         }
-
         return new File(url.toURI());
     }
 }

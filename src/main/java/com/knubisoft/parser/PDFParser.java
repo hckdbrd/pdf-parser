@@ -10,6 +10,7 @@ import com.spire.pdf.utilities.PdfTableExtractor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class PDFParser {
 
@@ -17,7 +18,10 @@ public class PDFParser {
     private static final String DUPLICATE = "\\b(\\w+)\\1\\b";
     private static final String NO_BREAK_SPACE = "\u00a0";
 
-    public static List<List<?>> fromPDFToList(PdfTableExtractor pdfTableExtractor, PdfDocument document) {
+    public static List<List<?>> fromPDFToList(PdfDocument document) {
+        PdfTableExtractor pdfTableExtractor = new PdfTableExtractor(document);
+        Locale newLocale = Locale.ROOT;
+        Locale.setDefault(newLocale);
         List<List<?>> dynamicModelList = new ArrayList<>();
 
         for (int pageIndex = 0; pageIndex < document.getPages().getCount(); pageIndex++) {
