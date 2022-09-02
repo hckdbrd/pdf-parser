@@ -25,10 +25,9 @@ public final class PDFParser {
     private static final String NO_BREAK_SPACE = "\u00a0";
 
 
-    public static List<List<?>> fromPDFToList(PdfDocument document) {
+    public static List<List<?>> convertToList(PdfDocument document) {
         Locale newLocale = Locale.ROOT;
         Locale.setDefault(newLocale);
-
 
         PdfTableExtractor pdfTableExtractor = new PdfTableExtractor(document);
         List<List<?>> dynamicModelList = new ArrayList<>();

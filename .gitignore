@@ -7,6 +7,7 @@
 .idea/
 *.iml
 *.iws
+*.ipr
 
 # Maven
 log/
@@ -23,20 +24,9 @@ build/
 java/build/**
 
 =======
-target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-
-### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
-.idea/
-*.iws
-*.iml
-*.ipr
 
 ### Eclipse ###
 .apt_generated
@@ -53,7 +43,6 @@ target/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
